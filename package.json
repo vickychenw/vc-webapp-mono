@@ -2,7 +2,11 @@
   "name": "@vc-webapp-mono/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "nx": "nx",
+    "start:user": "nx serve user-api",
+    "start:dev": "nx run-many --target=serve --projects=user-api,vc-webapp-mono --parallel --maxParallel=5"
+  },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^9.1.1",
