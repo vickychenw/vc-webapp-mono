@@ -1,0 +1,74 @@
+{
+  "name": "vc-webapp-mono",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/vc-webapp-mono/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/vc-webapp-mono",
+        "main": "apps/vc-webapp-mono/src/main.ts",
+        "tsConfig": "apps/vc-webapp-mono/tsconfig.app.json",
+        "assets": [
+          "apps/vc-webapp-mono/src/assets"
+        ],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/vc-webapp-mono/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "vc-webapp-mono:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "vc-webapp-mono:build:development"
+        },
+        "production": {
+          "buildTarget": "vc-webapp-mono:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/vc-webapp-mono/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "apps/vc-webapp-mono/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
