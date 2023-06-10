@@ -1,15 +1,27 @@
 import { Controller, Get, Post, Put, Delete, Body, Req, Res, Param } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import {Request, Response} from 'express';
+import { UserService } from './user.service';
+import {User} from './interfaces/user.interface';
 
 @Controller('user')
 export class UserController {
 
+  //Inject dependency to this class
+  constructor(private readonly userService:UserService){}
+
   //This is the express way - not recommended
+  /*
   @Get()
   findAll(@Req() req: Request, @Res() res: Response): Response{
     console.log('req.url', req.url);
     return res.send('Hello Vicky');
+  }
+  */
+
+  @Get()
+  findAll(): User[]{
+    return this.userService.findAll();
   }
 
   //Recommended way with NestJS
