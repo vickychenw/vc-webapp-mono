@@ -20,14 +20,15 @@ export class UserController {
   */
 
   @Get()
-  findAll(): User[]{
-    return this.userService.findAll();
+  async findAll(): Promise<User[]>{
+    return await this.userService.findAll();
   }
 
   //Recommended way with NestJS
   @Get(':id')
-  findOne(@Param('id') id) : string{
-    return `Your id is ${id}`;
+  async findOne(@Param('id') id) : Promise<User>{
+    const userObj  = await this.userService.findOne(parseInt(id));
+    return userObj
   }
 
 
